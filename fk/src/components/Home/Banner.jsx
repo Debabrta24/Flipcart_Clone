@@ -53,7 +53,6 @@ const Banner = () => {
         containerClass="carousel-container"
         autoPlay={true}
         keyBoardControl={true}
-        
         autoPlaySpeed={1000}
         itemClass="carousel-item-padding-40-px"
       >
