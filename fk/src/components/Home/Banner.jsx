@@ -1,6 +1,14 @@
+import { styled } from "@mui/material";
 import React from "react";
-import Carousel from "react-multi-carousel";
+import CarouselModule from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+const Carousel = CarouselModule.default;
+
+const Image = styled("img")`
+  width: 100%;
+  height: 180px;
+`;
+
 const bannerData = [
   {
     id: 1,
@@ -36,9 +44,21 @@ const responsive = {
 const Banner = () => {
   return (
     <>
-      <Carousel responsive={responsive}>
+      <Carousel
+        responsive={responsive}
+        swipeable={false} // not swipe
+        draggable={false} // not for draggable
+        dotListClass="custom-dot-list-style" // dot based on ohtot number
+        infinite={true} // never stop showing slider
+        containerClass="carousel-container"
+        autoPlay={true}
+        keyBoardControl={true}
+        
+        autoPlaySpeed={1000}
+        itemClass="carousel-item-padding-40-px"
+      >
         {bannerData.map((data) => (
-          <img src={data.url} alt="banner" />
+          <Image src={data.url} alt="banner" />
         ))}
       </Carousel>
     </>
