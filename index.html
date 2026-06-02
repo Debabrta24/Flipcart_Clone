@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Galaxy Campus UI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+
+            transition: 1s ease;
+
+            background:
+                radial-gradient(circle at top,
+                    #13264f,
+                    #050816 75%);
+
+            color: white;
+        }
+
+        /* ========================= */
+        /* BETTER DAY MODE */
+        /* ========================= */
+
+        body.day {
+
+            background:
+                linear-gradient(to bottom,
+                    #d8fff0 0%,
+                    #b6f5d4 25%,
+                    #82d8a7 55%,
+                    #5cbf89 100%);
+
+            color: #143524;
+        }
+
+        /* Soft sunlight glow */
+
+        body.day::before {
+
+            content: '';
+
+            position: fixed;
+            inset: 0;
+
+            background:
+                radial-gradient(circle at top right,
+                    rgba(255, 255, 255, 0.55),
+                    transparent 45%);
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        /* ========================= */
+        /* GALAXY */
+        /* ========================= */
+
+        .galaxy {
+
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* ========================= */
+        /* STARS */
+        /* ========================= */
+
+        .star {
+
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+
+            animation:
+                float linear infinite;
+        }
+
+        .twinkle {
+
+            animation:
+                twinkle 2s infinite alternate,
+                float linear infinite;
+        }
+
+        @keyframes twinkle {
+
+            from {
+                opacity: 0.2;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+
+            0% {
+                transform:
+                    translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform:
+                    translate(25px, -45px) scale(1.2);
+            }
+
+            100% {
+                transform:
+                    translate(0, 0) scale(1);
+            }
+        }
+
+        /* ========================= */
+        /* SHOOTING STARS */
+        /* ========================= */
+
+        .shooting {
+
+            position: absolute;
+
+            width: 2px;
+            height: 170px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(transparent,
+                    white,
+                    #80d8ff);
+
+            transform: rotate(45deg);
+
+            opacity: 0;
+
+            animation:
+                shooting linear infinite;
+        }
+
+        @keyframes shooting {
+
+            0% {
+
+                transform:
+                    translate(0, 0) rotate(45deg);
+
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+
+                transform:
+                    translate(-1800px, 1800px) rotate(45deg);
+
+                opacity: 0;
+            }
+        }
+
+        /* Hide stars in day */
+
+        body.day .star,
+        body.day .shooting {
+
+            opacity: 0 !important;
+        }
+
+        /* ========================= */
+        /* CLOUDS */
+        /* ========================= */
+
+        .cloud {
+
+            position: absolute;
+
+            background:
+                rgba(255, 255, 255, 0.85);
+
+            border-radius: 100px;
+
+            opacity: 0;
+
+            filter: blur(1px);
+
+            transition: 1s ease;
+        }
+
+        body.day .cloud {
+
+            opacity: 1;
+        }
+
+        .cloud::before,
+        .cloud::after {
+
+            content: '';
+
+            position: absolute;
+
+            background:
+                rgba(255, 255, 255, 0.92);
+
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+
+            width: 80px;
+            height: 80px;
+
+            top: -35px;
+            left: 25px;
+        }
+
+        .cloud::after {
+
+            width: 100px;
+            height: 100px;
+
+            top: -50px;
+            right: 20px;
+        }
+
+        /* cloud 1 */
+
+        .cloud1 {
+
+            width: 240px;
+            height: 70px;
+
+            top: 100px;
+            left: -350px;
+
+            animation:
+                cloudMove 45s linear infinite;
+        }
+
+        /* cloud 2 */
+
+        .cloud2 {
+
+            width: 300px;
+            height: 80px;
+
+            top: 240px;
+            left: -400px;
+
+            animation:
+                cloudMove 60s linear infinite;
+        }
+
+        /* cloud 3 */
+
+        .cloud3 {
+
+            width: 180px;
+            height: 60px;
+
+            top: 170px;
+            left: -250px;
+
+            animation:
+                cloudMove 55s linear infinite;
+        }
+
+        @keyframes cloudMove {
+
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(2400px);
+            }
+        }
+
+        /* ========================= */
+        /* FLOATING PARTICLES */
+        /* ========================= */
+
+        .particle {
+
+            position: absolute;
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.4);
+
+            opacity: 0;
+
+            animation:
+                particleMove linear infinite;
+        }
+
+        body.day .particle {
+
+            opacity: 1;
+        }
+
+        @keyframes particleMove {
+
+            0% {
+
+                transform:
+                    translateY(100vh) translateX(0px);
+
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+
+                transform:
+                    translateY(50vh) translateX(30px);
+            }
+
+            100% {
+
+                transform:
+                    translateY(-120px) translateX(-40px);
+
+                opacity: 0;
+            }
+        }
+
+        /* ========================= */
+        /* CONTAINER */
+        /* ========================= */
+
+        .container {
+
+            position: relative;
+            z-index: 2;
+
+            padding: 30px 22px 60px;
+        }
+
+        /* ========================= */
+        /* HEADER */
+        /* ========================= */
+
+        .header {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            margin-bottom: 35px;
+        }
+
+        .left h1 {
+
+            font-size: 38px;
+            font-weight: 700;
+        }
+
+        .wave {
+
+            display: inline-block;
+
+            animation:
+                wave 2s infinite;
+        }
+
+        @keyframes wave {
+
+            0% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(14deg);
+            }
+
+            40% {
+                transform: rotate(-8deg);
+            }
+
+            60% {
+                transform: rotate(14deg);
+            }
+
+            80% {
+                transform: rotate(-4deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .subtitle {
+
+            margin-top: 6px;
+            color: #a9b7d0;
+            font-size: 17px;
+        }
+
+        body.day .subtitle {
+
+            color: #295941;
+        }
+
+        /* ========================= */
+        /* BUTTONS */
+        /* ========================= */
+
+        .right {
+
+            display: flex;
+            gap: 15px;
+        }
+
+        .circle {
+
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(12px);
+
+            border:
+                2px solid #1fff87;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: #1fff87;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            transition: 0.4s ease;
+        }
+
+        body.day .circle {
+
+            background:
+                rgba(255, 255, 255, 0.35);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.5);
+
+            color: #1f6d49;
+
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .circle:hover {
+
+            transform: scale(1.08);
+        }
+
+        .profile {
+
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* ========================= */
+        /* GRID */
+        /* ========================= */
+
+        .grid {
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        /* ========================= */
+        /* CARD */
+        /* ========================= */
+
+        .card {
+
+            height: 165px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(255, 255, 255, 0.05);
+
+            backdrop-filter: blur(16px);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.06);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: 0.5s ease;
+        }
+
+        /* Better day cards */
+
+        body.day .card {
+
+            background:
+                rgba(255, 255, 255, 0.4);
+
+            backdrop-filter: blur(18px);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.5);
+
+            color: #1a4b33;
+
+            box-shadow:
+                0 12px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Glow */
+
+        .card::before {
+
+            content: '';
+
+            position: absolute;
+
+            width: 180%;
+            height: 180%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(31, 255, 135, 0.15),
+                    transparent 70%);
+
+            opacity: 0;
+
+            transition: 0.5s ease;
+        }
+
+        .card:hover::before {
+
+            opacity: 1;
+        }
+
+        .card:hover {
+
+            transform:
+                translateY(-8px) scale(1.03);
+        }
+
+        /* ICON */
+
+        .card i {
+
+            font-size: 38px;
+            color: #1fff87;
+            margin-bottom: 18px;
+        }
+
+        body.day .card i {
+
+            color: #24915c;
+        }
+
+        /* TEXT */
+
+        .card h2 {
+
+            font-size: 19px;
+            font-weight: 600;
+        }
+
+        /* ========================= */
+        /* MOBILE */
+        /* ========================= */
+
+        @media(max-width:700px) {
+
+            .grid {
+                gap: 15px;
+            }
+
+            .card {
+                height: 145px;
+            }
+
+            .card i {
+                font-size: 30px;
+            }
+
+            .card h2 {
+                font-size: 15px;
+            }
+
+            .left h1 {
+                font-size: 32px;
+            }
+
+            .circle {
+                width: 52px;
+                height: 52px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- BACKGROUND -->
+    <!-- ========================= -->
+
+    <div class="galaxy" id="galaxy">
+
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- MAIN UI -->
+    <!-- ========================= -->
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="left">
+
+                <h1>
+                    Hello Dev
+                    <span class="wave">👋</span>
+                </h1>
+
+                <div class="subtitle">
+                    Your Campus Assistant
+                </div>
+
+            </div>
+
+            <div class="right">
+
+                <div class="circle" id="themeBtn">
+                    ☀️
+                </div>
+
+                <div class="circle profile">
+                    D
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="grid">
+
+            <div class="card">
+                <i class="fa-regular fa-folder"></i>
+                <h2>Organizer</h2>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-book"></i>
+                <h2>PYQ</h2>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-pen"></i>
+                <h2>Notes</h2>
+            </div>
+
+            <div class="card">
+                <i class="fa-regular fa-lightbulb"></i>
+                <h2>Suggestion</h2>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-tv"></i>
+                <h2>Lecture</h2>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-calculator"></i>
+                <h2>GPA</h2>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const galaxy =
+            document.getElementById('galaxy');
+
+        /* ========================= */
+        /* STARS */
+        /* ========================= */
+
+        for (let i = 0; i < 280; i++) {
+
+            const star =
+                document.createElement('div');
+
+            star.classList.add('star');
+
+            const size =
+                Math.random() * 4 + 1;
+
+            star.style.width =
+                size + 'px';
+
+            star.style.height =
+                size + 'px';
+
+            star.style.left =
+                Math.random() * window.innerWidth + 'px';
+
+            star.style.top =
+                Math.random() * window.innerHeight + 'px';
+
+            star.style.opacity =
+                Math.random();
+
+            star.style.animationDuration =
+                (3 + Math.random() * 10) + 's';
+
+            star.style.boxShadow = `
+    0 0 ${Math.random() * 10}px white,
+    0 0 ${Math.random() * 20}px #7aa2ff`;
+
+            if (i % 3 === 0) {
+
+                star.classList.add('twinkle');
+            }
+
+            galaxy.appendChild(star);
+        }
+
+        /* ========================= */
+        /* SHOOTING STARS */
+        /* ========================= */
+
+        for (let i = 0; i < 15; i++) {
+
+            const shoot =
+                document.createElement('div');
+
+            shoot.classList.add('shooting');
+
+            shoot.style.top =
+                Math.random() * window.innerHeight + 'px';
+
+            shoot.style.left =
+                (Math.random() * window.innerWidth + 500) + 'px';
+
+            shoot.style.animationDuration =
+                (2 + Math.random() * 4) + 's';
+
+            shoot.style.animationDelay =
+                Math.random() * 10 + 's';
+
+            galaxy.appendChild(shoot);
+        }
+
+        /* ========================= */
+        /* DAY PARTICLES */
+        /* ========================= */
+
+        for (let i = 0; i < 80; i++) {
+
+            const particle =
+                document.createElement('div');
+
+            particle.classList.add('particle');
+
+            particle.style.left =
+                Math.random() * window.innerWidth + 'px';
+
+            particle.style.animationDuration =
+                (10 + Math.random() * 12) + 's';
+
+            particle.style.animationDelay =
+                Math.random() * 10 + 's';
+
+            galaxy.appendChild(particle);
+        }
+
+        /* ========================= */
+        /* THEME TOGGLE */
+        /* ========================= */
+
+        const btn =
+            document.getElementById('themeBtn');
+
+        btn.addEventListener('click', () => {
+
+            document.body.classList.toggle('day');
+
+            if (document.body.classList.contains('day')) {
+
+                btn.innerHTML = '🌙';
+
+            } else {
+
+                btn.innerHTML = '☀️';
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
