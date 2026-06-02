@@ -1,12 +1,23 @@
 import React from "react";
 // import { navData } from "../../constants/Data.js";
-import { Box, styled } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 
 const Component = styled(Box)`
   display: flex;
+  margin: 55px 130px 0 130px;
+  justify-content: space-between;
+`;
+
+const Container = styled(Box)`
+  padding: 12px 8px;
+  text-align: center;
 `;
 
 const navData = [
+  {
+    url: "https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100",
+    text: "Top Offers",
+  },
   {
     url: "https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100",
     text: "Top Offers",
@@ -41,18 +52,23 @@ const navData = [
   },
 ];
 
+const Text = styled(Typography)`
+  font-size: 14px;
+  font-weight:600;
+  font-family:inherit ;
+`;
 const NavBar = () => {
   return (
-    <component>
+    <Component>
       {navData.map((data) => {
         return (
-          <Box>
+          <Container>
             <img src={data.url} alt="new " />
-            <p>{data.text}</p>
-          </Box>
+            <Text>{data.text}</Text>
+          </Container>
         );
       })}
-    </component>
+    </Component>
   );
 };
 
