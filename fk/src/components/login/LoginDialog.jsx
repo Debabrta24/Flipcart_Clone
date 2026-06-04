@@ -118,8 +118,12 @@ const LoginDialog = ({ open, setOpen }) => {
   const [account, toggleAccount] = useState(accountIntitialValues.login);
   const [signup,setSignup]=useState()
   const onInputChange=(e)=>{
-    console.log(e.target.value)
+    setSignup({...signup,[e.target.name]:e.target.value});
+    console.log(signup)
 
+  }
+  const signupUser=()=>{
+    console.log(signup)
   }
   return (
     <Dialog
@@ -178,13 +182,13 @@ const LoginDialog = ({ open, setOpen }) => {
           </Wrapper>
         ) : (
           <Wrapper>
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}   label="Enter first name" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}   label="Enter lastname" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}   label="Enter email" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}   label="Enter Password" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}   label="Enter phone" />
-            <LoginButton variant="contained">Continue</LoginButton>
-            <RequestOtp>Request OTP</RequestOtp>
+            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="firstname" label="Enter first name" />
+            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="lastName" label="Enter lastname" />
+            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="email" label="Enter email" />
+            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="password" label="Enter Password" />
+            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="phone" label="Enter phone" />
+            <LoginButton onClick={()=>{signupUser}}  variant="contained">Continue</LoginButton>
+            <RequestOtp >Request OTP</RequestOtp>
           </Wrapper>
         )}
       </Component>
