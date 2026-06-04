@@ -7,6 +7,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import authenticateSignup from "../../services/api";
 
 const Component = styled(Box)`
   height: 528px;
@@ -101,30 +102,28 @@ const accountIntitialValues = {
   },
 };
 
-const signInitialValues={
-    firstname:'',
-    lastName:'',
-    username:'',
-    email:'',
-    password:'',
-    phone:''
-}
+const signInitialValues = {
+  firstname: "",
+  lastName: "",
+  username: "",
+  email: "",
+  password: "",
+  phone: "",
+};
 const LoginDialog = ({ open, setOpen }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  
-  const [account, toggleAccount] = useState(accountIntitialValues.login);
-  const [signup,setSignup]=useState()
-  const onInputChange=(e)=>{
-    setSignup({...signup,[e.target.name]:e.target.value});
-    console.log(signup)
 
-  }
-  const signupUser=()=>{
-    console.log(signup)
-  }
+  const [account, toggleAccount] = useState(accountIntitialValues.login);
+  const [signup, setSignup] = useState();
+  const onInputChange = (e) => {
+    setSignup({ ...signup, [e.target.name]: e.target.value });
+    console.log(signup);
+  };
+  const signupUser = async () => {
+    const responce = await authenticateSignup(signup);
+  };
   return (
     <Dialog
       open={open}
@@ -182,13 +181,50 @@ const LoginDialog = ({ open, setOpen }) => {
           </Wrapper>
         ) : (
           <Wrapper>
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="firstname" label="Enter first name" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="lastName" label="Enter lastname" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="email" label="Enter email" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="password" label="Enter Password" />
-            <TextField variant="standard"  onChange={(e)=>{onInputChange(e)}}  name="phone" label="Enter phone" />
-            <LoginButton onClick={()=>{signupUser}}  variant="contained">Continue</LoginButton>
-            <RequestOtp >Request OTP</RequestOtp>
+            <TextField
+              variant="standard"
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+              name="firstname"
+              label="Enter first name"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+              name="lastName"
+              label="Enter lastname"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+              name="email"
+              label="Enter email"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+              name="password"
+              label="Enter Password"
+            />
+            <TextField
+              variant="standard"
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+              name="phone"
+              label="Enter phone"
+            />
+            <LoginButton onClick={signupUser} variant="contained">
+              Continue
+            </LoginButton>
+            <RequestOtp>Request OTP</RequestOtp>
           </Wrapper>
         )}
       </Component>
