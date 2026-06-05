@@ -116,14 +116,16 @@ const LoginDialog = ({ open, setOpen }) => {
   };
 
   const [account, toggleAccount] = useState(accountIntitialValues.login);
-  const [signup, setSignup] = useState();
+  const [signup, setSignup] = useState(signInitialValues);
   const onInputChange = (e) => {
     setSignup({ ...signup, [e.target.name]: e.target.value });
     console.log(signup);
   };
   const signupUser = async () => {
     const responce = await authenticateSignup(signup);
+    console.log(responce)
   };
+  // signInitialValues
   return (
     <Dialog
       open={open}
@@ -196,6 +198,14 @@ const LoginDialog = ({ open, setOpen }) => {
               }}
               name="lastName"
               label="Enter lastname"
+            />
+             <TextField
+              variant="standard"
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+              name="username"
+              label="Enter username"
             />
             <TextField
               variant="standard"
